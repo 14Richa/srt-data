@@ -1,13 +1,16 @@
 import React from 'react';
-import srt from '../images/srt.jpeg';
+import srt from '../images/srt.jpg';
 
 
 function About() {
 
 	return (
-		<div > 
-		<img src = {srt}/>
+		<h1 style = {{paddingbottom: "630px"}}> Hi SRT 
+		<div> 
+		<img src = {srt} style = {{height: "656px"}}/>
 		</div>
+		<h4> hsfdjg</h4>
+		</h1>
 
 
 	);

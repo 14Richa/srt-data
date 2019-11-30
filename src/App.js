@@ -39,9 +39,9 @@ function getData(){
 }
 
 const slider = (
-  <AwesomeSlider cssModule={AwesomeSliderStyles}>
-    <div className = "main" style = {{ backgroundColor: "white" }}> <About/></div>
-    <div className = "main" style = {{ backgroundColor: "white"}} >
+  <AwesomeSlider cssModule={AwesomeSliderStyles} fillParent={false}>
+    <div style = {{ backgroundColor: "white" }}> <About/></div>
+    <div style = {{ backgroundColor: "white"}} >
         <BarChart
           data={data}
           title={"check"}
@@ -54,13 +54,13 @@ const slider = (
         />
     </div>
 
-    <div>
+    <div style = {{ backgroundColor: "white"}}>
       <Col lg="8" md="12" sm="12" className="mb-4">
         <UsersOverview />
       </Col>
     </div>
     
-    <div>4</div>
+    <div style = {{ backgroundColor: "white"}}>4</div>
   </AwesomeSlider>
 );
 
