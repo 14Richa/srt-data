@@ -4,38 +4,17 @@ import LineChart from './charts/lineChart';
 import { Container, Row, Col } from "shards-react";
 import UsersOverview from './UsersOverview';
 import UsersByDevice from './UsersByDevice';
-import { printcheck } from '../utils/data_prep.js';
+import { getData } from '../utils/data_prep.js';
 
-var data = [
-  {
-    "name": "A",
-    "value": 146
-  },
-  {
-    "name": "B",
-    "value": 687
-  },
-  
-]
 
-printcheck("test1");
-
-var data1 = [];
-  let baseTime = new Date('2018-05-01T00:00:00').getTime();
-  let dayMs = 24 * 60 * 60 * 1000;
-  for(var i = 0; i < 20; i++) {
-    data1.push({
-      time: new Date(baseTime + i * dayMs),
-      value: Math.round(20 + 80 * Math.random())
-    });
-  }
 
 
 class TimeLine extends React.Component {
 
 	componentDidMount()
 	{
-		printcheck("test2");
+		var yearlyData = getData("Yearly");
+		console.log(yearlyData);
 	}
 
 	render() {
