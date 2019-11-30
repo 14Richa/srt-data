@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from "prop-types";
+import { Row, Col, Card, CardHeader, CardBody, Button } from "shards-react";
+
 import logo from './logo.svg';
 import './App.css';
 import AwesomeSlider from 'react-awesome-slider';
@@ -6,6 +9,7 @@ import AwesomeSliderStyles from 'react-awesome-slider/src/styled/open-animation/
 import About from './components/about'
 import BarChart from './components/charts/barChart';
 import LineChart from './components/charts/lineChart';
+import UsersOverview from './components/UsersOverview';
 
 var data = [
   {
@@ -36,8 +40,8 @@ function getData(){
 
 const slider = (
   <AwesomeSlider cssModule={AwesomeSliderStyles}>
-    <div style = {{ backgroundColor: "white" }}> <About/></div>
-    <div style = {{ backgroundColor: "white"}} >
+    <div className = "main" style = {{ backgroundColor: "white" }}> <About/></div>
+    <div className = "main" style = {{ backgroundColor: "white"}} >
         <BarChart
           data={data}
           title={"check"}
@@ -50,7 +54,12 @@ const slider = (
         />
     </div>
 
-    <div>3</div>
+    <div>
+      <Col lg="8" md="12" sm="12" className="mb-4">
+        <UsersOverview />
+      </Col>
+    </div>
+    
     <div>4</div>
   </AwesomeSlider>
 );
