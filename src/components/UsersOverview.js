@@ -69,7 +69,7 @@ class UsersOverview extends React.Component {
       },
       ...this.props.chartOptions
     };
-
+    console.log(this.props, "props");
     const BlogUsersOverview = new Chart(this.canvasRef.current, {
       type: "LineWithLine",
       data: this.props.chartData,
@@ -182,51 +182,51 @@ UsersOverview.defaultProps = {
         pointRadius: 0,
         pointHoverRadius: 3
       },
-      {
-        label: "Past Month",
-        fill: "start",
-        data: [
-          380,
-          430,
-          120,
-          230,
-          410,
-          740,
-          472,
-          219,
-          391,
-          229,
-          400,
-          203,
-          301,
-          380,
-          291,
-          620,
-          700,
-          300,
-          630,
-          402,
-          320,
-          380,
-          289,
-          410,
-          300,
-          530,
-          630,
-          720,
-          780,
-          1200
-        ],
-        backgroundColor: "rgba(255,65,105,0.1)",
-        borderColor: "rgba(255,65,105,1)",
-        pointBackgroundColor: "#ffffff",
-        pointHoverBackgroundColor: "rgba(255,65,105,1)",
-        borderDash: [3, 3],
-        borderWidth: 1,
-        pointRadius: 0,
-        pointHoverRadius: 2,
-        pointBorderColor: "rgba(255,65,105,1)"
-      }
+      // {
+      //   label: "Past Month",
+      //   fill: "start",
+      //   data: [
+      //     380,
+      //     430,
+      //     120,
+      //     230,
+      //     410,
+      //     740,
+      //     472,
+      //     219,
+      //     391,
+      //     229,
+      //     400,
+      //     203,
+      //     301,
+      //     380,
+      //     291,
+      //     620,
+      //     700,
+      //     300,
+      //     630,
+      //     402,
+      //     320,
+      //     380,
+      //     289,
+      //     410,
+      //     300,
+      //     530,
+      //     630,
+      //     720,
+      //     780,
+      //     1200
+      //   ],
+      //   backgroundColor: "rgba(255,65,105,0.1)",
+      //   borderColor: "rgba(255,65,105,1)",
+      //   pointBackgroundColor: "#ffffff",
+      //   pointHoverBackgroundColor: "rgba(255,65,105,1)",
+      //   borderDash: [3, 3],
+      //   borderWidth: 1,
+      //   pointRadius: 0,
+      //   pointHoverRadius: 2,
+      //   pointBorderColor: "rgba(255,65,105,1)"
+      // }
     ]
   }
 };
