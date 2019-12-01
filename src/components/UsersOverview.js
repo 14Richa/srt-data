@@ -96,9 +96,9 @@ class UsersOverview extends React.Component {
         </CardHeader>
         <CardBody className="pt-0">
           <Row className="border-bottom py-2 bg-light">
-            <Col sm="6" className="d-flex mb-2 mb-sm-0">
-              <RangeDatePicker />
-            </Col>
+             {/*<Col sm="6" className="d-flex mb-2 mb-sm-0">
+            //   <RangeDatePicker />
+            // </Col>*/}
             <Col>
               <Button
                 size="sm"

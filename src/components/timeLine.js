@@ -78,6 +78,13 @@ var chartStyleLosses = {
             pointHoverRadius: 2
 }
 
+var pieChartStyles = {
+	hoverBorderColor: "#ffffff",
+	backgroundColor: ["rgba(0,123,255,0.9)",
+    				"rgba(0,123,255,0.3)"]
+
+}
+
 function getYearlyData(jsonObj)
 {
 	//jsonObj = jsonObj.map( d => ({...d, year: parseInt(d.date.split(" ")[2])})) ;
@@ -118,12 +125,39 @@ function getPieData(jsonObj)
 					backgroundColor: ["rgba(0,123,255,0.9)",
           								"rgba(0,123,255,0.5)",
       									"rgba(0,123,255,0.3)"]
-					}
-	var chartData = {labels: ["Win", "Lose"],
-					datasets: [{
-						data: [64, 36],
-						...pieProp
-					}]}
+				}
+
+	var total_run = jsonObj.reduce( (total, d) => ({score: total.score + d.score}) );
+	var wins_run = jsonObj.filter(d => d.match_result === "won").reduce( (total, d) => ({score: total.score +  d.score  }));
+	var losses_run = jsonObj.filter(d => d.match_result === "lost").reduce( (total, d) => ({score: total.score +  d.score  }));
+
+	var firstinnings = jsonObj.filter(d => d.batting_innings === "1st").reduce( (total, d) => ({score: total.score +  d.score  }));
+	var secondinnings = jsonObj.filter(d => d.batting_innings === "2nd").reduce( (total, d) => ({score: total.score +  d.score  }));
+
+
+	var chartData = {
+						results:
+						{
+							labels: ["Matches Won", "Matches Lost"],
+							datasets: [
+										{
+											data: [wins_run.score, losses_run.score],
+											...pieChartStyles
+										}
+										]
+						},
+						innings:
+						{
+							labels: ["First Innings", "Second Innings"],
+							datasets: [
+										{
+											data: [firstinnings.score, secondinnings.score],
+											...pieChartStyles
+										}
+										]
+						}
+					};
+
 		return(chartData)
 }
 
@@ -144,7 +178,7 @@ class TimeLine extends React.Component {
 		d3.csv(data).then((data) => {
 			var clean_Data = cleanData(data);
 			var temp = getYearlyData(clean_Data);
-			var pieData = getPieData(data);
+			var pieData = getPieData(clean_Data);
 			console.log(pieData);
 			this.setState({
         yearlyData: temp,
@@ -171,7 +205,7 @@ class TimeLine extends React.Component {
         			{(this.state.yearlyData) && <UsersOverview title="Run Stats" chartData={yearlyData} />}
       			</Col>
       			<Col lg="4" md="6" sm="3" className="mb-4">
-        			 {(this.state.pieData) && <UsersByDevice title="Check" chartData={pieData} />}
+        			 {(this.state.pieData) && <UsersByDevice title="Run Stats" chartData={pieData} />}
       			</Col>
   			</Row>
 			</div>

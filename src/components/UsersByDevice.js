@@ -11,18 +11,35 @@ import {
 } from "shards-react";
 
 import Chart from "../utils/chart";
-
+var myChart;
 class UsersByDevice extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {data: "results"}
     this.canvasRef = React.createRef();
   }
 
   componentDidMount() {
-    const chartConfig = {
+    
+    this.buildChart(this.props.chartData.results);
+
+  }
+
+  componentDidUpdate() {
+    
+    this.buildChart(this.props.chartData[this.state.data])
+
+    //   myChart.data.labels = this.props.chartData[this.state.data].labels;
+    //   myChart.data.datasets = this.props.chartData[this.state.data].datasets;
+    //   myChart.update();
+    // //}
+  }
+
+  buildChart = (data) => {
+    
+      const chartConfig = {
       type: "pie",
-      data: this.props.chartData,
+      data: data,
       options: {
         ...{
           legend: {
@@ -43,8 +60,11 @@ class UsersByDevice extends React.Component {
       }
     };
 
-    new Chart(this.canvasRef.current, chartConfig);
-  }
+
+      myChart = new Chart(this.canvasRef.current, chartConfig);
+    }
+
+  
 
   render() {
     const { title } = this.props;
@@ -65,19 +85,17 @@ class UsersByDevice extends React.Component {
             <Col>
               <FormSelect
                 size="sm"
-                value="last-week"
+                value={this.state.data}
                 style={{ maxWidth: "130px" }}
-                onChange={() => {}}
+                onChange={(e ) => this.setState({data:e.target.value})}
               >
-                <option value="last-week">Last Week</option>
-                <option value="today">Today</option>
-                <option value="last-month">Last Month</option>
-                <option value="last-year">Last Year</option>
+                <option value="results">Result</option>
+                <option value="innings">Innings</option> 
               </FormSelect>
             </Col>
             <Col className="text-right view-report">
               {/* eslint-disable-next-line */}
-              <a href="#">View full report &rarr;</a>
+             
             </Col>
           </Row>
         </CardFooter>
