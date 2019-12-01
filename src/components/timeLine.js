@@ -85,11 +85,11 @@ var pieChartStyles = {
 
 }
 
-var barChartStyle = {
+var barChartStyle1 = {
 		hoverBorderColor: "#ffffff",
-	    barPercentage: 0.3,
+	    //barPercentage: 0.3,
 	    //barThickness: 5,
-	    //maxBarThickness: 8,
+	    maxBarThickness: 20,
 	    minBarLength: 4,
 	    backgroundColor: [
       "rgba(0,123,255,0.9)",
@@ -98,6 +98,20 @@ var barChartStyle = {
       "rgba(0,123,255,0.9)",
       ]
 }
+var barChartStyle2 = {
+		hoverBorderColor: "#ffffff",
+	    //barPercentage: 0.3,
+	    //barThickness: 5,
+	    maxBarThickness: 20,
+	    minBarLength: 4,
+	    backgroundColor: [
+      "rgba(0,123,255,0.2)",
+      "rgba(0,123,255,0.2)",
+      "rgba(0,123,255,0.2)",
+      "rgba(0,123,255,0.2)",
+      ]
+}
+
 
 function getYearlyData(jsonObj)
 {
@@ -222,8 +236,11 @@ function getBarChartData(jsonObj)
 			data50[3]++;
 		}
 	}
-	var chartData = {labels: labels, datasets: [{label: "Number of 100s", data:data100, ...barChartStyle},
-												{label: "Number of 50s", data:data50, ...barChartStyle}]};
+	
+	var	datasets= [{label: "Number of 100s", data:data100, ...barChartStyle1},
+					{label: "Number of 50s", data:data50, ...barChartStyle2}]
+				
+	var chartData = {labels: labels, datasets: datasets };
 	return chartData;
 }
 
@@ -267,18 +284,19 @@ class TimeLine extends React.Component {
 		</div>
 			<div>
 			<Row>
-				<Col lg="8" md="12" sm="6" className="mb-4">
-        			{(this.state.yearlyData) && <UsersOverview title="Run Stats" chartData={yearlyData} />}
+				<Col lg="8" md="8" sm="8" className="mb-4">
+				{(this.state.barData) && <BarChart title="Number of 100s and 50s" chartData={barData}/>}
       			</Col>
-      			<Col lg="4" md="6" sm="3" className="mb-4">
+      			<Col lg="4" md="4" sm="4" className="mb-4">
+
         			 {(this.state.pieData) && <UsersByDevice title="Run Stats" chartData={pieData} />}
       			</Col>
   			</Row>
 			</div>
 			<div>
 			<Row>
-				<Col lg="8" md="12" sm="6" className="mb-4">
-				{(this.state.barData) && <BarChart title="Centuries" chartData={barData}/>}
+				<Col lg="12" md="12" sm="12" className="mb-4">
+        			{(this.state.yearlyData) && <UsersOverview title="Run Stats" chartData={yearlyData} />}
 				</Col>
 			</Row>
 			<div style = {{ marginBottom: "10px"}} class="card">

@@ -34,6 +34,7 @@ class BarChart extends React.Component {
               boxWidth: 20
             }
           },
+          barValueSpacing: 2,
           cutoutPercentage: 0,
           tooltips: {
             custom: false,
@@ -42,10 +43,10 @@ class BarChart extends React.Component {
           },
           scales: {
             xAxes: [{
-                stacked: true
+                stacked: false
             	}],
             yAxes: [{
-                stacked: true
+                stacked: false
             	}]
         	},
         },
@@ -65,7 +66,7 @@ class BarChart extends React.Component {
         </CardHeader>
         <CardBody className="d-flex py-0">
           <canvas
-            height="200"
+            height="150"
             ref={this.canvasRef}
             className="blog-users-by-device m-auto"
           />
