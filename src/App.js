@@ -14,16 +14,20 @@ import Timeline from './components/timeLine';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 
-function getData(){
-
-}
 
 const slider = (
   <AwesomeSlider cssModule={AwesomeSliderStyles} fillParent={false}>
-    <div style = {{ backgroundColor: "white" }}> <About/></div>
-    <div style = {{ backgroundColor: "white"}} >
-        
+    <div style = {{ backgroundColor: "white" }}> 
+
+    
+      <About/>
+   
+
+    </div>
+    <div style = {{ backgroundColor: "white" }}>
+        <Col >
         <Timeline />
+        </Col>
     </div>
 
     <div style = {{ backgroundColor: "rgba(199, 204, 212)"}}>
