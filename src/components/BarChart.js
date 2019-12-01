@@ -21,6 +21,7 @@ class BarChart extends React.Component {
   }
 
     componentDidMount() {
+    console.log(this.props);
     const chartConfig = {
       type: "bar",
       data: this.props.chartData,
@@ -64,7 +65,7 @@ class BarChart extends React.Component {
         </CardHeader>
         <CardBody className="d-flex py-0">
           <canvas
-            height="100"
+            height="200"
             ref={this.canvasRef}
             className="blog-users-by-device m-auto"
           />
@@ -72,7 +73,7 @@ class BarChart extends React.Component {
         <CardFooter className="border-top">
           <Row>
             <Col>
-              <FormSelect
+              {/*<FormSelect
                 size="sm"
                 value="last-week"
                 style={{ maxWidth: "130px" }}
@@ -82,11 +83,11 @@ class BarChart extends React.Component {
                 <option value="today">Today</option>
                 <option value="last-month">Last Month</option>
                 <option value="last-year">Last Year</option>
-              </FormSelect>
+              </FormSelect>*/}
             </Col>
             <Col className="text-right view-report">
               {/* eslint-disable-next-line */}
-              <a href="#">View full report &rarr;</a>
+              
             </Col>
           </Row>
         </CardFooter>

@@ -85,6 +85,20 @@ var pieChartStyles = {
 
 }
 
+var barChartStyle = {
+		hoverBorderColor: "#ffffff",
+	    barPercentage: 0.3,
+	    //barThickness: 5,
+	    //maxBarThickness: 8,
+	    minBarLength: 4,
+	    backgroundColor: [
+      "rgba(0,123,255,0.9)",
+      "rgba(0,123,255,0.9)",
+      "rgba(0,123,255,0.9)",
+      "rgba(0,123,255,0.9)",
+      ]
+}
+
 function getYearlyData(jsonObj)
 {
 	//jsonObj = jsonObj.map( d => ({...d, year: parseInt(d.date.split(" ")[2])})) ;
@@ -98,7 +112,7 @@ function getYearlyData(jsonObj)
     var losses_data = aggregate_score(losses);
 
     var labels = total_data.map(d => d.x);
-	console.log(total_data);
+	
 	var chartData = {};
 	chartData.labels = labels;
 	chartData.datasets =[
@@ -161,7 +175,57 @@ function getPieData(jsonObj)
 		return(chartData)
 }
 
-
+function getBarChartData(jsonObj)
+{
+	var labels = ["1989-94", "1995-2000", "2001-06", "2007-12"];
+	var data100 = [0, 0, 0, 0];
+	var data50 = [0, 0, 0, 0];
+	var centArray = jsonObj.filter(d => d.score >= 100);
+	var fiftArray = jsonObj.filter(d => d.score >= 50 && d.score < 100);
+	for(var i=0; i<centArray.length; i++)
+	{
+		let year = centArray[i].year
+		if(year <= 1994)
+		{
+			data100[0]++;
+		}
+		else if(year <=2000)
+		{
+			data100[1]++;
+		}
+		else if(year <= 2006)
+		{
+			data100[2]++;
+		}
+		else
+		{
+			data100[3]++;
+		}
+	}
+	for(var i=0; i<fiftArray.length; i++)
+	{
+		let year = fiftArray[i].year
+		if(year <= 1994)
+		{
+			data50[0]++;
+		}
+		else if(year <=2000)
+		{
+			data50[1]++;
+		}
+		else if(year <= 2006)
+		{
+			data50[2]++;
+		}
+		else
+		{
+			data50[3]++;
+		}
+	}
+	var chartData = {labels: labels, datasets: [{label: "Number of 100s", data:data100, ...barChartStyle},
+												{label: "Number of 50s", data:data50, ...barChartStyle}]};
+	return chartData;
+}
 
 class TimeLine extends React.Component {
 	constructor(props){
@@ -177,12 +241,14 @@ class TimeLine extends React.Component {
 	{
 		d3.csv(data).then((data) => {
 			var clean_Data = cleanData(data);
+			//console.log(clean_Data);
 			var temp = getYearlyData(clean_Data);
 			var pieData = getPieData(clean_Data);
-			console.log(pieData);
+			var barData = getBarChartData(clean_Data);
 			this.setState({
         yearlyData: temp,
-        pieData: pieData
+        pieData: pieData,
+        barData: barData,
       });
 		}).catch(function(err){
 					throw err;
@@ -191,7 +257,7 @@ class TimeLine extends React.Component {
 	
 
 	render() {
-		const { yearlyData, pieData } = this.state;
+		const { yearlyData, pieData, barData } = this.state;
 		return (
 		<div>
 		<div style = {{ marginBottom: "10px"}} class="card">
@@ -212,7 +278,7 @@ class TimeLine extends React.Component {
 			<div>
 			<Row>
 				<Col lg="8" md="12" sm="6" className="mb-4">
-				<BarChart/>
+				{(this.state.barData) && <BarChart title="Centuries" chartData={barData}/>}
 				</Col>
 			</Row>
 			<div style = {{ marginBottom: "10px"}} class="card">

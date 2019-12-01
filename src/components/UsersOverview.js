@@ -69,7 +69,7 @@ class UsersOverview extends React.Component {
       },
       ...this.props.chartOptions
     };
-    console.log(this.props, "props");
+    
     const BlogUsersOverview = new Chart(this.canvasRef.current, {
       type: "LineWithLine",
       data: this.props.chartData,
