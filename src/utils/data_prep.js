@@ -48,3 +48,8 @@ function aggregate_score( jsonObj)
 	}
 	return(obj);
 }
+
+function getCenturiesData( jsonObj )
+{
+
+}

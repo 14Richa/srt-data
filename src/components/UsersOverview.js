@@ -37,7 +37,7 @@ class UsersOverview extends React.Component {
               ticks: {
                 callback(tick, index) {
                   // Jump every 7 values on the X axis labels to avoid clutter.
-                  return index % 7 !== 0 ? "" : tick;
+                  return index % 2 !== 0 ? "" : tick;
                 }
               }
             }

@@ -1,9 +1,10 @@
 import React from 'react';
-import BarChart from './charts/barChart';
-import LineChart from './charts/lineChart';
+//import BarChart from './charts/barChart';
+//import LineChart from './charts/lineChart';
 import { Container, Row, Col } from "shards-react";
 import UsersOverview from './UsersOverview';
 import UsersByDevice from './UsersByDevice';
+import BarChart from './BarChart';
 //import { getData } from '../utils/data_prep.js';
 import * as d3 from "d3";
 import data from '../assets/sachin.csv'
@@ -53,6 +54,21 @@ function getYearlyData(jsonObj)
 	return chartData
 }
 
+function getPieData(jsonObj)
+{
+	var pieProp = { 
+					hoverBorderColor: "#ffffff",
+					backgroundColor: ["rgba(0,123,255,0.9)",
+          								"rgba(0,123,255,0.5)",
+      									"rgba(0,123,255,0.3)"]
+					}
+	var chartData = {labels: ["Win", "Lose"],
+					datasets: [{
+						data: [64, 36],
+						...pieProp
+					}]}
+		return(chartData)
+}
 
 
 
@@ -60,7 +76,8 @@ class TimeLine extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			yearlyData: null
+			yearlyData: null,
+			pieData: null
 			//yearlyData: {labels: ["a", "b"], datasets: [{label:"initial", fill:"start", data: [1,2], ...chartStyle}]}
 		}
 	}
@@ -69,12 +86,12 @@ class TimeLine extends React.Component {
 	{
 		d3.csv(data).then((data) => {
 			var temp = getYearlyData(data);
-			console.log(temp);
-
+			var pieData = getPieData(data);
+			console.log(pieData);
 			this.setState({
-        yearlyData: temp
+        yearlyData: temp,
+        pieData: pieData
       });
-      console.log(this.state.yearlyData, "did it update?");
 		}).catch(function(err){
 					throw err;
 		})
@@ -82,10 +99,10 @@ class TimeLine extends React.Component {
 	
 
 	render() {
-		const { yearlyData } = this.state;
+		const { yearlyData, pieData } = this.state;
 		return (
 		<div>
-		<div style = {{ marginBottom: "90px"}} class="card">
+		<div style = {{ marginBottom: "10px"}} class="card">
 		  <div className="card-body">
 		    This is some text within a card block.
 		  </div>
@@ -96,16 +113,21 @@ class TimeLine extends React.Component {
         			{(this.state.yearlyData) && <UsersOverview title="Run Stats" chartData={yearlyData} />}
       			</Col>
       			<Col lg="4" md="6" sm="3" className="mb-4">
-        			<UsersByDevice />
+        			 {(this.state.pieData) && <UsersByDevice title="Check" chartData={pieData} />}
       			</Col>
   			</Row>
 			</div>
 			<div>
 			<Row>
 				<Col lg="8" md="12" sm="6" className="mb-4">
-				<UsersOverview/>
+				<BarChart/>
 				</Col>
 			</Row>
+			<div style = {{ marginBottom: "10px"}} class="card">
+		  <div className="card-body">
+		    This is some text within a card block.
+		  </div>
+		</div>
 			</div>
 		</div>
 		)
