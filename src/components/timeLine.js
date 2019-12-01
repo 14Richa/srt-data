@@ -9,17 +9,27 @@ import BarChart from './BarChart';
 import * as d3 from "d3";
 import data from '../assets/sachin.csv'
 
+function cleanData( jsonObj )
+{
+    jsonObj = jsonObj.map( d => ({...d, year: parseInt(d.date.split(" ")[2])}));
+    for (var i = 0; i < jsonObj.length; i++) {
+        var value = jsonObj[i].batting_score;
+        value = value.replace('*','');
+        if(value =="DNB" || value =="TDNB") {
+            value = 0;
+        };
+    jsonObj[i].score = parseInt(value);
+    delete jsonObj[i].batting_score;
+    }
+    return jsonObj;
+}
+
 function aggregate_score( jsonObj)
 {
 	var obj = {};
 	for(var i = 0; i < jsonObj.length; i++) {
 		var key = jsonObj[i].year;
-		var value = jsonObj[i].batting_score;
-		value = value.replace('*','');
-		if(value =="DNB" || value =="TDNB") {
-			value = 0;
-		};
-
+		var value = jsonObj[i].score;
 		if( key in obj )
 		{
 			obj[key] += parseInt(value);
@@ -29,11 +39,16 @@ function aggregate_score( jsonObj)
 			obj[key] = parseInt(value); 
 		}
 	}
-	return(obj);
+	
+	var keys = Object.keys(obj);
+	var values = Object.values(obj);
+	var res = keys.map((x, i) => ({x: parseInt(x),y: parseInt(values[i])}));
+	return res;
 }
 
 var chartStyle = {        
 				backgroundColor: "rgba(0,123,255,0.1)",
+				//cubicInterpolationMode: "false",
         borderColor: "rgba(0,123,255,1)",
         pointBackgroundColor: "#ffffff",
         pointHoverBackgroundColor: "rgb(0,123,255)",
@@ -42,15 +57,57 @@ var chartStyle = {
         pointHoverRadius: 3
       };
 
+var chartStyleWins = {
+      backgroundColor: "rgba(0,250,154,0.1)",
+         borderColor: "rgb(0,250,154)",
+         pointBackgroundColor: "#ffffff",
+         pointHoverBackgroundColor: "rgb(0,250,154)",
+         borderWidth: 1.5,
+         pointRadius: 0,
+         pointHoverRadius: 3
+};
+
+var chartStyleLosses = {
+	 backgroundColor: "rgba(255,65,105,0.1)",
+            borderColor: "rgba(255,65,105,1)",
+            pointBackgroundColor: "#ffffff",
+            pointHoverBackgroundColor: "rgba(255,65,105,1)",
+            //borderDash: [3, 3],
+            borderWidth: 1,
+            pointRadius: 0,
+            pointHoverRadius: 2
+}
+
 function getYearlyData(jsonObj)
 {
-	jsonObj = jsonObj.map( d => ({...d, year: d.date.split(" ")[2]})) ;
+	//jsonObj = jsonObj.map( d => ({...d, year: parseInt(d.date.split(" ")[2])})) ;
 	//console.log(jsonObj);
-	var yearlyScore = aggregate_score(jsonObj);
+	var total = jsonObj;
+    var wins = jsonObj.filter( d => d.match_result == "won");
+    var losses = jsonObj.filter( d => d.match_result == "lost");
+
+    var total_data = aggregate_score(total);
+    var wins_data = aggregate_score(wins);
+    var losses_data = aggregate_score(losses);
+
+    var labels = total_data.map(d => d.x);
+	console.log(total_data);
 	var chartData = {};
-	chartData.labels = Object.keys(yearlyScore);
-	chartData.datasets = [{label: "Total", fill: "start", 
-												data: Object.values(yearlyScore), ...chartStyle}];
+	chartData.labels = labels;
+	chartData.datasets =[
+							{
+								label: "Total", fill: "start", lineTension: 0, 
+								data: total_data, ...chartStyle
+							},
+							{
+								label: "Wins", fill: "start", lineTension: 0,
+								data: wins_data, ...chartStyleWins
+							},
+							{
+								label: "Losses", fill: "start", lineTension: 0,
+								data: losses_data, ...chartStyleLosses
+							}
+						];
 	return chartData
 }
 
@@ -85,7 +142,8 @@ class TimeLine extends React.Component {
 	componentDidMount()
 	{
 		d3.csv(data).then((data) => {
-			var temp = getYearlyData(data);
+			var clean_Data = cleanData(data);
+			var temp = getYearlyData(clean_Data);
 			var pieData = getPieData(data);
 			console.log(pieData);
 			this.setState({
