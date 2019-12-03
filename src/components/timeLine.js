@@ -75,42 +75,77 @@ class TimeLine extends React.Component {
 		<Col sm="12" md="4" lg="2" >
 		</Col>
 		<Col sm="12" md="4" lg="8">
-				<div style = {{ marginBottom: "10px"}} class="card">
-				  <div className="card-body">
-				    We can take a look at Sachin's batting numbers at different cuts on this page. Each card is a different slice of data. Cards are self-explanatory, I have added comments wherever needed.
+				<div style = {{ marginBottom: "10px", paddingTop: "20px"}} >
+				  <div className ="mb-4">
+				    We here take a look at Sachin's batting numbers in terms of centuries and fifties in the first card below. The second card tells us his statistics sliced at two dimentions, across match results and across innings played.
 				  </div>
-
 				</div>
 				<div>
 				<Row>
-					<Col lg="8" md="8" sm="8" className="mb-4">
+					<Col>
+					</Col>
+					<Col lg="6" md="6" sm="6" className="mb-4">
 					{(this.state.barData) && <BarChart title="Number of 100s and 50s" chartData={barData}/>}
 	      			</Col>
 	      			<Col lg="4" md="4" sm="4" className="mb-4">
 
 	        			 {(this.state.pieData) && <PieChartOptions title="Run Stats" chartData={pieData} />}
 	      			</Col>
+	      			<Col>
+	      			</Col>
 	  			</Row>
 				</div>
+
+				
+
 				<div>
 				<Row>
-					<Col lg="12" md="12" sm="12" className="mb-4">
-	        			{(this.state.yearlyData) && <TimeSeriesChart title="Run Stats" chartData={yearlyData} />}
+				<Col lg="4" md="4" sm="4" className="mb-4">
+				<div style = {{ marginBottom: "10px", paddingTop: "20px"}} >
+				  <div className ="mb-4">
+				    In the adjacent graph we take a look at how Sachin's performance remained over the course of his career spanning more than two decades! 
+				    I have also plotted the runs he scored for India in the matches India won and lost respectively in a separate line in the same plot. 
+				    <b>1998</b> was the best year for Sachin in which he scored moe than 1800 runs in a single year.
+				  </div>
+				</div>
+				</Col>
+					<Col lg="7" md="7" sm="7" className="mb-4">
+	        			{(this.state.yearlyData) && <TimeSeriesChart title="Runs scored over the years" chartData={yearlyData} />}
 					</Col>
+					
+					
 				</Row>
 				<Row>
-					<Col lg="8" md="8" sm="8">
+					<Col lg="7" md="7" sm="7">
+					<div className ="mb-4">
+				    In the below radar chart we take a look at which countries bore the brunt of Sachin's batting the maximum. Sachin performed best against Sri Lanka followed closely by Australia. But this data independenttly is not enough.
+				    In the adjacent piechart, we can see the number of matches Sachin played against the top teams. 
+				    </div>
+				    <Row>
+				    
+				    <Col lg="10" md="10" sm="10">
 	        			{(this.state.yearlyData) && <RadarChart title="Top 5 opponents" chartData={radarData}/> }
+	        			</Col>
+	        			<Col lg="2" md="2" sm="2">
+				    </Col>
+	        		</Row>
 					</Col>
-					<Col lg="4" md="4" sm="4">
+					
+					<Col lg="5" md="5" sm="5">
+						<Row>
+						<Col>
 	        			{(this.state.matchesPlayed) && <PieChart title="Matches Played" chartData={matchesPlayed} /> }
+	        			</Col>
+	        			<Col>
+	        			</Col>
+	        			<div className ="mb-4 mt-4">
+				    		In the above pie-chart we see the matches Sachin played against different teams. As expected Sachin played maximum number of matches against Sri Lanka and Australia against whom he also scored the maximum runs.
+			    		</div>
+				    	</Row>
 					</Col>
+
 				</Row>
-				<div style = {{ marginBottom: "10px"}} class="card">
-			  <div className="card-body">
-			    This is some text within a card block.
-			  </div>
-			</div>
+				
 			</div>
 			</Col>
 			<Col sm="12" md="4" lg="2" >
