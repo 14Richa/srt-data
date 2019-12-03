@@ -6,16 +6,18 @@ import UsersOverview from './UsersOverview';
 import UsersByDevice from './UsersByDevice';
 import BarChart from './BarChart';
 import RadarChart from './radarchart';
-//import { getData } from '../utils/data_prep.js';
+import PieChart from './piechart';
+import { getTopOpponents, GetMatchesPlayed  } from '../utils/data_prep.js';
 import * as d3 from "d3";
 import data from '../assets/sachin.csv'
 
-import {chartStyleWins, chartStyle, chartStyleLosses, barChartStyle1, 
-		barChartStyle2, pieChartStyles} from './style'
+import {chartStyleWins, chartStyle, chartStyleLosses, barChartStyle1, pieChartStyles2,
+		barChartStyle2, pieChartStyles, radarChartStyles} from './style'
 
 function cleanData( jsonObj )
 {
     jsonObj = jsonObj.map( d => ({...d, year: parseInt(d.date.split(" ")[2])}));
+    jsonObj = jsonObj.map( d => ({...d, opposition: d.opposition.substr(d.opposition.indexOf(' ')+ 1)}));
     for (var i = 0; i < jsonObj.length; i++) {
         var value = jsonObj[i].batting_score;
         value = value.replace('*','');
@@ -187,14 +189,21 @@ class TimeLine extends React.Component {
 	{
 		d3.csv(data).then((data) => {
 			var clean_Data = cleanData(data);
-			//console.log(clean_Data);
+			console.log(clean_Data);
 			var temp = getYearlyData(clean_Data);
 			var pieData = getPieData(clean_Data);
 			var barData = getBarChartData(clean_Data);
+			var matchesPlayed = GetMatchesPlayed(clean_Data);
+			matchesPlayed.datasets[0] = {...matchesPlayed.datasets[0], ...pieChartStyles2}; 
+			var top5Oppo = getTopOpponents(clean_Data);
+			top5Oppo.datasets[0] = {...top5Oppo.datasets[0], ...radarChartStyles, ...{label: "Runs Scored"}};
+
 			this.setState({
-        yearlyData: temp,
-        pieData: pieData,
-        barData: barData,
+        		yearlyData: temp,
+        		pieData: pieData,
+        		barData: barData,
+        		radarData: top5Oppo,
+        		matchesPlayed: matchesPlayed
       });
 		}).catch(function(err){
 					throw err;
@@ -203,7 +212,7 @@ class TimeLine extends React.Component {
 	
 
 	render() {
-		const { yearlyData, pieData, barData } = this.state;
+		const { yearlyData, pieData, barData, radarData, matchesPlayed } = this.state;
 		return (
 		<div>
 		<Row>
@@ -234,8 +243,11 @@ class TimeLine extends React.Component {
 					</Col>
 				</Row>
 				<Row>
-					<Col >
-	        			<RadarChart/>}
+					<Col lg="8" md="8" sm="8">
+	        			{(this.state.yearlyData) && <RadarChart title="Top 5 opponents" chartData={radarData}/> }
+					</Col>
+					<Col lg="4" md="4" sm="4">
+	        			{(this.state.matchesPlayed) && <PieChart title="Matches Played" chartData={matchesPlayed} chartOptions={radarChartStyles}/> }
 					</Col>
 				</Row>
 				<div style = {{ marginBottom: "10px"}} class="card">

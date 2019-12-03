@@ -31,6 +31,18 @@ export const pieChartStyles = {
 
 }
 
+export const pieChartStyles2 = {
+	hoverBorderColor: "#ffffff",
+	backgroundColor: [	"rgba(0,123,255,0.9)",
+    					"rgba(0,123,255,0.8)",
+    					"rgba(0,123,255,0.7)",
+    					"rgba(0,123,255,0.6)",
+    					"rgba(0,123,255,0.5)",
+    					"rgba(0,123,255,0.4)",
+    					"rgba(0,123,255,0.3)"]
+
+}
+
 export const barChartStyle1 = {
 		hoverBorderColor: "#ffffff",
 	    //barPercentage: 0.3,
@@ -64,5 +76,14 @@ export const chartStyleWins = {
          pointHoverBackgroundColor: "rgb(0,250,154)",
          borderWidth: 1.5,
          pointRadius: 0,
+         pointHoverRadius: 3
+};
+export const radarChartStyles = {
+      	 backgroundColor: "rgba(0,123,255,0.1)",
+         borderColor: "rgba(0,123,255,1)",
+         pointBackgroundColor: "#ffffff",
+         pointHoverBackgroundColor: "rgb(0,250,154)",
+         borderWidth: 1.5,
+         pointRadius: 2,
          pointHoverRadius: 3
 };

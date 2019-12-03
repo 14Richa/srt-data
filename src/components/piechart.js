@@ -1,4 +1,3 @@
-//Radar.js
 import React from "react";
 import PropTypes from "prop-types";
 import {
@@ -12,40 +11,51 @@ import {
 } from "shards-react";
 
 import Chart from "../utils/chart";
-
-class RadarChart extends React.Component {
+var myChart;
+class PieChart extends React.Component {
   constructor(props) {
     super(props);
-
     this.canvasRef = React.createRef();
   }
 
-    componentDidMount() {
-    console.log(this.props);
-    const chartConfig = {
-      type: "radar",
-      data: this.props.chartData,
+  componentDidMount() {
+    
+    this.buildChart(this.props.chartData);
+    console.log(this.props.chartData);
+
+  }
+
+ 
+  buildChart = (data) => {
+    
+      const chartConfig = {
+      type: "pie",
+      data: data,
       options: {
         ...{
-            scale: {
-                angleLines: {
-                display: true
-            },
-            ticks: {
-                suggestedMin: 50,
-                suggestedMax: 100
+          legend: {
+            position: "bottom",
+            labels: {
+              padding: 25,
+              boxWidth: 20
             }
-            },
-            tooltips: {
-              mode: 'point'
-            }
+          },
+          cutoutPercentage: 0,
+          tooltips: {
+            custom: false,
+            mode: "index",
+            position: "nearest"
+          }
         },
         ...this.props.chartOptions
       }
     };
 
-    new Chart(this.canvasRef.current, chartConfig);
-  }
+
+      myChart = new Chart(this.canvasRef.current, chartConfig);
+    }
+
+  
 
   render() {
     const { title } = this.props;
@@ -56,7 +66,7 @@ class RadarChart extends React.Component {
         </CardHeader>
         <CardBody className="d-flex py-0">
           <canvas
-            height="150"
+            height="300"
             ref={this.canvasRef}
             className="blog-users-by-device m-auto"
           />
@@ -64,10 +74,19 @@ class RadarChart extends React.Component {
         <CardFooter className="border-top">
           <Row>
             <Col>
+              {/*<FormSelect
+                size="sm"
+                value={this.state.data}
+                style={{ maxWidth: "130px" }}
+                onChange={(e ) => this.setState({data:e.target.value})}
+              >
+                <option value="results">Result</option>
+                <option value="innings">Innings</option> 
+              </FormSelect>*/}
             </Col>
             <Col className="text-right view-report">
               {/* eslint-disable-next-line */}
-              
+             
             </Col>
           </Row>
         </CardFooter>
@@ -76,7 +95,7 @@ class RadarChart extends React.Component {
   }
 }
 
-RadarChart.propTypes = {
+PieChart.propTypes = {
   /**
    * The component's title.
    */
@@ -95,37 +114,22 @@ RadarChart.propTypes = {
   chartData: PropTypes.object
 };
 
-RadarChart.defaultProps = {
-  title: "Radar Chart",
+PieChart.defaultProps = {
+  title: "PieChart",
   chartData: {
     datasets: [
       {
         hoverBorderColor: "#ffffff",
-        data: [10, 20, 30, 40, 50, 28],
+        data: [68.3, 24.2, 7.5],
         backgroundColor: [
           "rgba(0,123,255,0.9)",
-          "rgba(0,123,255,0.9)",
-          "rgba(0,123,255,0.9)",
-          "rgba(0,123,255,0.9)",
-          "rgba(0,123,255,0.9)",
-          "rgba(0,123,255,0.9)",
-        ]
-      },
-      {
-        hoverBorderColor: "#ffffff",
-        data: [105, 260, 330, 420, 50, 28],
-        backgroundColor: [
-          "rgba(0,123,252,0.9)",
-          "rgba(0,123,252,0.9)",
-          "rgba(0,123,252,0.9)",
-          "rgba(0,123,252,0.9)",
-          "rgba(0,123,252,0.9)",
-          "rgba(0,123,252,0.9)",
+          "rgba(0,123,255,0.5)",
+          "rgba(0,123,255,0.3)"
         ]
       }
     ],
-    labels: ["A", "B", "C", "D", "E", "F"]
+    labels: ["Desktop", "Tablet", "Mobile"]
   }
 };
 
-export default RadarChart;
+export default PieChart;
