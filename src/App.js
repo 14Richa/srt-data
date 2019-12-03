@@ -8,7 +8,6 @@ import './App.css';
 import AwesomeSlider from 'react-awesome-slider';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/open-animation/open-animation.scss';
 
-import UsersOverview from './components/UsersOverview';
 import Timeline from './components/timeLine';
 import About from './components/about';
 import NavExample from './components/Navbar';

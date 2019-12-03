@@ -2,12 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Card, CardHeader, CardBody, Button } from "shards-react";
 
-
-
 import RangeDatePicker from "./RangeDatePicker";
 import Chart from "../utils/chart";
 
-class UsersOverview extends React.Component {
+class TimeSeriesChart extends React.Component {
   constructor(props) {
     super(props);
 
@@ -119,7 +117,7 @@ class UsersOverview extends React.Component {
   }
 }
 
-UsersOverview.propTypes = {
+TimeSeriesChart.propTypes = {
   /**
    * The component's title.
    */
@@ -134,7 +132,7 @@ UsersOverview.propTypes = {
   chartOptions: PropTypes.object
 };
 
-UsersOverview.defaultProps = {
+TimeSeriesChart.defaultProps = {
   title: "Users Overview",
   chartData: {
     labels: Array.from(new Array(30), (_, i) => (i === 0 ? 1 : i)),
@@ -231,4 +229,4 @@ UsersOverview.defaultProps = {
   }
 };
 
-export default UsersOverview;
+export default TimeSeriesChart;
