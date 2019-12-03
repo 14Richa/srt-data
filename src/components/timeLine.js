@@ -2,12 +2,13 @@
 import React from 'react';
 import * as d3 from "d3";
 //Import components
-import { Container, Row, Col } from "shards-react";
+import {  Row, Col } from "shards-react";
 import TimeSeriesChart from './timeserieschart';
-import UsersByDevice from './UsersByDevice';
+
 import BarChart from './BarChart';
 import RadarChart from './radarchart';
 import PieChart from './piechart';
+import PieChartOptions from './piechartopt';
 //Import Functions
 import { getTopOpponents, GetMatchesPlayed, getYearlyTimeSeriesData, getRunsPieData, getCenturiesData  } from '../utils/data_prep.js';
 //Import Data
@@ -21,7 +22,7 @@ function cleanData( jsonObj ){
     for (var i = 0; i < jsonObj.length; i++) {
         var value = jsonObj[i].batting_score;
         value = value.replace('*','');
-        if(value =="DNB" || value =="TDNB") {
+        if(value ==="DNB" || value ==="TDNB") {
             value = 0;
         };
     jsonObj[i].score = parseInt(value);
@@ -88,7 +89,7 @@ class TimeLine extends React.Component {
 	      			</Col>
 	      			<Col lg="4" md="4" sm="4" className="mb-4">
 
-	        			 {(this.state.pieData) && <UsersByDevice title="Run Stats" chartData={pieData} />}
+	        			 {(this.state.pieData) && <PieChartOptions title="Run Stats" chartData={pieData} />}
 	      			</Col>
 	  			</Row>
 				</div>

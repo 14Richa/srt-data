@@ -25,7 +25,7 @@ export function getCenturiesData(jsonObj)
 	var data50 = [0, 0, 0, 0];
 	var centArray = jsonObj.filter(d => d.score >= 100);
 	var fiftArray = jsonObj.filter(d => d.score >= 50 && d.score < 100);
-	for(var i=0; i<centArray.length; i++)
+	for(let i=0; i<centArray.length; i++)
 	{
 		let year = centArray[i].year
 		if(year <= 1994)
@@ -45,7 +45,7 @@ export function getCenturiesData(jsonObj)
 			data100[3]++;
 		}
 	}
-	for(var i=0; i<fiftArray.length; i++)
+	for(let i=0; i<fiftArray.length; i++)
 	{
 		let year = fiftArray[i].year
 		if(year <= 1994)
@@ -76,8 +76,8 @@ export function getCenturiesData(jsonObj)
 export function getYearlyTimeSeriesData(jsonObj)
 {
 	var total = jsonObj;
-    var wins = jsonObj.filter( d => d.match_result == "won");
-    var losses = jsonObj.filter( d => d.match_result == "lost");
+    var wins = jsonObj.filter( d => d.match_result === "won");
+    var losses = jsonObj.filter( d => d.match_result === "lost");
 
     var total_data = aggregate_score(total);
     var wins_data = aggregate_score(wins);
@@ -129,7 +129,6 @@ function aggregate_score( jsonObj)
 
 export function getRunsPieData(jsonObj)
 {
-	var total_run = jsonObj.reduce( (total, d) => ({score: total.score + d.score}) );
 	var wins_run = jsonObj.filter(d => d.match_result === "won").reduce( (total, d) => ({score: total.score +  d.score  }));
 	var losses_run = jsonObj.filter(d => d.match_result === "lost").reduce( (total, d) => ({score: total.score +  d.score  }));
 

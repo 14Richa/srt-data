@@ -12,7 +12,7 @@ import {
 
 import Chart from "../utils/chart";
 var myChart;
-class UsersByDevice extends React.Component {
+class PieChartOptions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {data: "results"}
@@ -104,7 +104,7 @@ class UsersByDevice extends React.Component {
   }
 }
 
-UsersByDevice.propTypes = {
+PieChartOptions.propTypes = {
   /**
    * The component's title.
    */
@@ -123,7 +123,7 @@ UsersByDevice.propTypes = {
   chartData: PropTypes.object
 };
 
-UsersByDevice.defaultProps = {
+PieChartOptions.defaultProps = {
   title: "Users by device",
   chartData: {
     datasets: [
@@ -141,4 +141,4 @@ UsersByDevice.defaultProps = {
   }
 };
 
-export default UsersByDevice;
+export default PieChartOptions;

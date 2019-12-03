@@ -1,12 +1,8 @@
 import React from 'react';
-import PropTypes from "prop-types";
-import { Row, Col, Card, CardHeader, CardBody, Button } from "shards-react";
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import logo from './logo.svg';
 import './App.css';
-import AwesomeSlider from 'react-awesome-slider';
-import AwesomeSliderStyles from 'react-awesome-slider/src/styled/open-animation/open-animation.scss';
 
 import Timeline from './components/timeLine';
 import About from './components/about';

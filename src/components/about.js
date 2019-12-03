@@ -1,6 +1,6 @@
 import React from 'react';
 import srt from '../images/srt.jpg';
-import { Container, Row, Col } from "shards-react";
+import { Row, Col } from "shards-react";
 
 
 function About() {
@@ -12,7 +12,7 @@ function About() {
 		<Col>
 		</Col>
 				<Col >
-				<img  src = {srt} style = {{height: "500px", marginBottom: "20px" }}/>
+				<img  src = {srt} alt = {"Sachin Tendulkar"}style = {{height: "500px", marginBottom: "20px" }}/>
       			</Col>
       			<Col >
   					<div className = "card mt-4" >

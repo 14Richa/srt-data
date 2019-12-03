@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from "prop-types";
-import { Row, Col, Card, CardHeader, CardBody, Button } from "shards-react";
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+
+import { Link } from 'react-router-dom';
 
 
 
