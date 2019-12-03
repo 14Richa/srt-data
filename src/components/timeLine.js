@@ -123,25 +123,26 @@ class TimeLine extends React.Component {
 				    </div>
 				    <Row>
 				    
-				    <Col lg="10" md="10" sm="10">
+				    <Col lg="10" md="10" sm="10" className ="mt-3">
 	        			{(this.state.yearlyData) && <RadarChart title="Top 5 opponents" chartData={radarData}/> }
 	        			</Col>
 	        			<Col lg="2" md="2" sm="2">
 				    </Col>
 	        		</Row>
-					</Col>
-					
+					</Col>			
 					<Col lg="5" md="5" sm="5">
 						<Row>
-						<Col>
+						
+						<Col lg="10" md="10" sm="10">
 	        			{(this.state.matchesPlayed) && <PieChart title="Matches Played" chartData={matchesPlayed} /> }
 	        			</Col>
-	        			<Col>
+	        			<Col lg="2" md="2" sm="2">
 	        			</Col>
-	        			<div className ="mb-4 mt-4">
+	        			</Row>
+	        			<div className ="mb-4 mt-3">
 				    		In the above pie-chart we see the matches Sachin played against different teams. As expected Sachin played maximum number of matches against Sri Lanka and Australia against whom he also scored the maximum runs.
 			    		</div>
-				    	</Row>
+				    	
 					</Col>
 
 				</Row>
