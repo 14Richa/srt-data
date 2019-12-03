@@ -9,9 +9,12 @@ import RadarChart from './radarchart';
 import PieChart from './piechart';
 import PieChartOptions from './piechartopt';
 //Import Functions
-import { getTopOpponents, GetMatchesPlayed, getYearlyTimeSeriesData, getRunsPieData, getCenturiesData  } from '../utils/data_prep.js';
+import { getTopOpponents, GetMatchesPlayed, getYearlyTimeSeriesData, getRunsPieData, getCenturiesData, getGrounds  } from '../utils/data_prep.js';
 //Import Data
-import data from '../assets/sachin.csv'
+import data from '../assets/sachin.csv';
+import MapChartWrapper from './mapchartwrapper';
+
+
 
 
 
@@ -53,6 +56,7 @@ class TimeLine extends React.Component {
 			//matchesPlayed.datasets[0] = {...matchesPlayed.datasets[0], ...pieChartStyles2}; 
 			var top5Oppo = getTopOpponents(clean_Data);
 			//top5Oppo.datasets[0] = {...top5Oppo.datasets[0], ...radarChartStyles, ...{label: "Runs Scored"}};
+			getGrounds(clean_Data);
 
 			this.setState({
         		yearlyData: temp,
@@ -150,6 +154,15 @@ class TimeLine extends React.Component {
 			</div>
 			</Col>
 			<Col sm="12" md="4" lg="2" >
+			</Col>
+			</Row>
+			<Row>
+			<Col  lg="2" md="2" sm="2" >
+			</Col>
+			<Col  lg="8" md="8" sm="8" >
+			<MapChartWrapper/>
+			</Col>
+			<Col  lg="2" md="2" sm="2" >
 			</Col>
 			</Row>
 		</div>

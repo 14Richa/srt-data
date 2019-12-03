@@ -17,6 +17,23 @@ import {chartStyleWins, chartStyle, chartStyleLosses, barChartStyle1, pieChartSt
 
 // 	})
 // }
+export function getCountriesGroundMap()
+{
+	let India = ["Nagpur", "Pune", "Margao", "Chandigarh", "Cuttack", "Kolkata", "Gwalior", "New Delhi", "Vishakhapatnam", "Kochi", "Jodhpur", "Amritsar", "Rajkot", "Mohali",
+	"Jaipur", "Kanpur", "Faridabad", "Bangalore", "Jamshedpur", "Guwahati", "Gwalior", "Bangalore", "Hyderabad", "Jalandhar", "Mumbai", "Chennai", "Delhi", "Indore", "Ahemdabad"];
+	let Pakistan = ["Karachi", "Peshawar", "Rawalpindi", "Multan", "Lahore", "Gujranwala"];
+	let United_Kingdom = ["Leeds", "Nottingham", ""];
+	let Australia = ["Perth", "Hobart", "Adelaide", "Brisbane", "Sydney", "Melbourne", ""];
+
+}
+
+export function getGrounds(jsonObj)
+{
+	let grounds = jsonObj.map( d => d.ground);
+	let unique_ground = grounds.filter((item, i, ar) => ar.indexOf(item) === i);
+	console.log(unique_ground);
+}
+
 
 export function getCenturiesData(jsonObj)
 {
