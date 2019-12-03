@@ -115,8 +115,6 @@ var barChartStyle2 = {
 
 function getYearlyData(jsonObj)
 {
-	//jsonObj = jsonObj.map( d => ({...d, year: parseInt(d.date.split(" ")[2])})) ;
-	//console.log(jsonObj);
 	var total = jsonObj;
     var wins = jsonObj.filter( d => d.match_result == "won");
     var losses = jsonObj.filter( d => d.match_result == "lost");
@@ -148,21 +146,12 @@ function getYearlyData(jsonObj)
 
 function getPieData(jsonObj)
 {
-	var pieProp = { 
-					hoverBorderColor: "#ffffff",
-					backgroundColor: ["rgba(0,123,255,0.9)",
-          								"rgba(0,123,255,0.5)",
-      									"rgba(0,123,255,0.3)"]
-				}
-
 	var total_run = jsonObj.reduce( (total, d) => ({score: total.score + d.score}) );
 	var wins_run = jsonObj.filter(d => d.match_result === "won").reduce( (total, d) => ({score: total.score +  d.score  }));
 	var losses_run = jsonObj.filter(d => d.match_result === "lost").reduce( (total, d) => ({score: total.score +  d.score  }));
 
 	var firstinnings = jsonObj.filter(d => d.batting_innings === "1st").reduce( (total, d) => ({score: total.score +  d.score  }));
 	var secondinnings = jsonObj.filter(d => d.batting_innings === "2nd").reduce( (total, d) => ({score: total.score +  d.score  }));
-
-
 	var chartData = {
 						results:
 						{
@@ -186,7 +175,7 @@ function getPieData(jsonObj)
 						}
 					};
 
-		return(chartData)
+	return(chartData)
 }
 
 function getBarChartData(jsonObj)
@@ -277,34 +266,43 @@ class TimeLine extends React.Component {
 		const { yearlyData, pieData, barData } = this.state;
 		return (
 		<div>
-		<div style = {{ marginBottom: "10px"}} class="card">
-		  <div className="card-body">
-		    This is some text within a card block.
-		  </div>
-		</div>
-			<div>
-			<Row>
-				<Col lg="8" md="8" sm="8" className="mb-4">
-				{(this.state.barData) && <BarChart title="Number of 100s and 50s" chartData={barData}/>}
-      			</Col>
-      			<Col lg="4" md="4" sm="4" className="mb-4">
+		<Row>
+		<Col sm="12" md="4" lg="3" >
+		</Col>
+		<Col sm="12" md="4" lg="6">
+				<div style = {{ marginBottom: "10px"}} class="card">
+				  <div className="card-body">
+				    This is some text within a card block.
+				  </div>
 
-        			 {(this.state.pieData) && <UsersByDevice title="Run Stats" chartData={pieData} />}
-      			</Col>
-  			</Row>
+				</div>
+				<div>
+				<Row>
+					<Col lg="8" md="8" sm="8" className="mb-4">
+					{(this.state.barData) && <BarChart title="Number of 100s and 50s" chartData={barData}/>}
+	      			</Col>
+	      			<Col lg="4" md="4" sm="4" className="mb-4">
+
+	        			 {(this.state.pieData) && <UsersByDevice title="Run Stats" chartData={pieData} />}
+	      			</Col>
+	  			</Row>
+				</div>
+				<div>
+				<Row>
+					<Col lg="12" md="12" sm="12" className="mb-4">
+	        			{(this.state.yearlyData) && <UsersOverview title="Run Stats" chartData={yearlyData} />}
+					</Col>
+				</Row>
+				<div style = {{ marginBottom: "10px"}} class="card">
+			  <div className="card-body">
+			    This is some text within a card block.
+			  </div>
 			</div>
-			<div>
-			<Row>
-				<Col lg="12" md="12" sm="12" className="mb-4">
-        			{(this.state.yearlyData) && <UsersOverview title="Run Stats" chartData={yearlyData} />}
-				</Col>
+			</div>
+			</Col>
+			<Col sm="12" md="4" lg="3" >
+			</Col>
 			</Row>
-			<div style = {{ marginBottom: "10px"}} class="card">
-		  <div className="card-body">
-		    This is some text within a card block.
-		  </div>
-		</div>
-			</div>
 		</div>
 		)
 	}
