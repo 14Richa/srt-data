@@ -1,29 +1,51 @@
 //data_prep.js
+import {chartStyleWins, chartStyle, chartStyleLosses} from "../components/style.js"
 
+// export function getData(type)
+// {
+// 	const csvFilePath='../assets/sachin.csv'
+// 	const csv=require('csvtojson')
+// 	csv()
+// 	.fromFile(csvFilePath)
+// 	.then((jsonObj)=>{
+// 		if(type==="Yearly")
+// 		{
+// 			var yearly_runs = getYearlyData(jsonObj);
+// 			return yearly_runs
+// 		}
 
-export function getData(type)
+// 	})
+// }
+
+export function getYearlyTimeSeriesData(jsonObj)
 {
-	const csvFilePath='../assets/sachin.csv'
-	const csv=require('csvtojson')
-	csv()
-	.fromFile(csvFilePath)
-	.then((jsonObj)=>{
-		if(type==="Yearly")
-		{
-			var yearly_runs = getYearlyData(jsonObj);
-			return yearly_runs
-		}
+	var total = jsonObj;
+    var wins = jsonObj.filter( d => d.match_result == "won");
+    var losses = jsonObj.filter( d => d.match_result == "lost");
 
-	})
-}
+    var total_data = aggregate_score(total);
+    var wins_data = aggregate_score(wins);
+    var losses_data = aggregate_score(losses);
 
-function getYearlyData(jsonObj)
-{
-	jsonObj = jsonObj.map( d => ({...d, year: d.date.split(" ")[2]})) ;
-	//console.log(jsonObj);
-	var yearlyScore = aggregate_score(jsonObj);
+    var labels = total_data.map(d => d.x);
 	
-	return yearlyScore
+	var chartData = {};
+	chartData.labels = labels;
+	chartData.datasets =[
+							{
+								label: "Total", fill: "start", lineTension: 0, 
+								data: total_data, ...chartStyle
+							},
+							{
+								label: "Wins", fill: "start", lineTension: 0,
+								data: wins_data, ...chartStyleWins
+							},
+							{
+								label: "Losses", fill: "start", lineTension: 0,
+								data: losses_data, ...chartStyleLosses
+							}
+						];
+	return chartData
 }
  
 
@@ -32,12 +54,7 @@ function aggregate_score( jsonObj)
 	var obj = {};
 	for(var i = 0; i < jsonObj.length; i++) {
 		var key = jsonObj[i].year;
-		var value = jsonObj[i].batting_score;
-		value = value.replace('*','');
-		if(value ==="DNB" || value ==="TDNB") {
-			value = 0;
-		};
-
+		var value = jsonObj[i].score;
 		if( key in obj )
 		{
 			obj[key] += parseInt(value);
@@ -47,7 +64,11 @@ function aggregate_score( jsonObj)
 			obj[key] = parseInt(value); 
 		}
 	}
-	return(obj);
+	
+	var keys = Object.keys(obj);
+	var values = Object.values(obj);
+	var res = keys.map((x, i) => ({x: parseInt(x),y: parseInt(values[i])}));
+	return res;
 }
 
 export function GetMatchesPlayed (jsonObj)

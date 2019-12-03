@@ -7,7 +7,7 @@ import UsersByDevice from './UsersByDevice';
 import BarChart from './BarChart';
 import RadarChart from './radarchart';
 import PieChart from './piechart';
-import { getTopOpponents, GetMatchesPlayed  } from '../utils/data_prep.js';
+import { getTopOpponents, GetMatchesPlayed, getYearlyTimeSeriesData  } from '../utils/data_prep.js';
 import * as d3 from "d3";
 import data from '../assets/sachin.csv'
 
@@ -45,46 +45,12 @@ function aggregate_score( jsonObj)
 			obj[key] = parseInt(value); 
 		}
 	}
-	
 	var keys = Object.keys(obj);
 	var values = Object.values(obj);
 	var res = keys.map((x, i) => ({x: parseInt(x),y: parseInt(values[i])}));
 	return res;
 }
 
-
-
-
-function getYearlyData(jsonObj)
-{
-	var total = jsonObj;
-    var wins = jsonObj.filter( d => d.match_result == "won");
-    var losses = jsonObj.filter( d => d.match_result == "lost");
-
-    var total_data = aggregate_score(total);
-    var wins_data = aggregate_score(wins);
-    var losses_data = aggregate_score(losses);
-
-    var labels = total_data.map(d => d.x);
-	
-	var chartData = {};
-	chartData.labels = labels;
-	chartData.datasets =[
-							{
-								label: "Total", fill: "start", lineTension: 0, 
-								data: total_data, ...chartStyle
-							},
-							{
-								label: "Wins", fill: "start", lineTension: 0,
-								data: wins_data, ...chartStyleWins
-							},
-							{
-								label: "Losses", fill: "start", lineTension: 0,
-								data: losses_data, ...chartStyleLosses
-							}
-						];
-	return chartData
-}
 
 function getPieData(jsonObj)
 {
@@ -190,7 +156,7 @@ class TimeLine extends React.Component {
 		d3.csv(data).then((data) => {
 			var clean_Data = cleanData(data);
 			console.log(clean_Data);
-			var temp = getYearlyData(clean_Data);
+			var temp = getYearlyTimeSeriesData(clean_Data);
 			var pieData = getPieData(clean_Data);
 			var barData = getBarChartData(clean_Data);
 			var matchesPlayed = GetMatchesPlayed(clean_Data);
