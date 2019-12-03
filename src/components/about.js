@@ -3,29 +3,40 @@ import srt from '../images/srt.jpg';
 import { Row, Col } from "shards-react";
 
 
+const divStyle = {
+	marginLeft: "auto",
+	marginRight: "auto",
+	position: "relative",
+	// top: "40%",
+	// transform: "translateY(-50%)",
+	textAlign : 'center'
+}
+
+
 function About() {
 
 	return (
 		<div className="mb-10">
-		<h1  style = {{marginBottom: "30px", fontFamily: "san-sarif", fontStyle: "bold", color: "black"}}> Sachin Ramesh Tendulkar </h1>
-		<Row >
-		<Col>
-		</Col>
-				<Col >
-				<img  src = {srt} alt = {"Sachin Tendulkar"}style = {{height: "500px", marginBottom: "20px" }}/>
-      			</Col>
-      			<Col >
-  					<div className = "card mt-4" >
-						<div className = "card-body" style = {{fontFamily: "Vollkorn", fontStyle: "italic", color: "black", textAlign: "left"}}>
-						<div style = {{ color: "black"}}> "On a train from Shimla to Delhi, there was a halt at one of the stations. The train stopped by for few minutes as usual. Sachin was nearing a century, batting on 98. The passengers, railway officials, everyone on the train waited for Sachin to complete the century. This genius can stop time in India!"</div>
-						</div>
-					</div>
-        			 
-      			</Col>
-      			<Col>
-      			</Col>
-		</Row>
-		
+		<div style={divStyle}>
+			<h1  style = {{marginBottom: "30px", fontFamily: "san-sarif", fontStyle: "bold", color: "black"}}> Sachin Ramesh Tendulkar </h1>
+			<Row >
+				<Col>
+				</Col>
+						<Col >
+						<img  src = {srt} alt = {"Sachin Tendulkar"}style = {{height: "500px", marginBottom: "20px" }}/>
+		      			</Col>
+		      			<Col >
+		  					<div className = "card mt-4" >
+								<div className = "card-body" style = {{fontFamily: "Vollkorn", fontStyle: "italic", color: "black", textAlign: "left"}}>
+								<div style = {{ color: "black"}}> "On a train from Shimla to Delhi, there was a halt at one of the stations. The train stopped by for few minutes as usual. Sachin was nearing a century, batting on 98. The passengers, railway officials, everyone on the train waited for Sachin to complete the century. This genius can stop time in India!"</div>
+								</div>
+							</div>
+		        			 
+		      			</Col>
+		      			<Col>
+		      			</Col>
+			</Row>
+		</div>		
 		
 		</div>
 		
