@@ -13,11 +13,9 @@ export default function NavExample() {
         <NavLink href="/about">About</NavLink>
       </NavItem>
       <NavItem>
-        <NavLink href="/data">data</NavLink>
+        <NavLink href="/data">Data</NavLink>
       </NavItem>
-      <NavItem>
-        <NavLink href="/more-data">more-data</NavLink>
-      </NavItem>
+      
     </Nav>
   );
 }

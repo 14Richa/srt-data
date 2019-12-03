@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Row } from "shards-react";
 
 import './App.css';
 
@@ -18,7 +19,7 @@ class App extends React.Component {
   render() {
     return (      
        <BrowserRouter>
-        <div>
+        <div className="App-body">
           <NavExample />
             <Switch>
              <Route path="/" component={Home} exact/>

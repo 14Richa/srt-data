@@ -4,8 +4,7 @@ import * as d3 from "d3";
 //Import components
 import {  Row, Col } from "shards-react";
 import TimeSeriesChart from './timeserieschart';
-
-import BarChart from './BarChart';
+import BarChart from './barchart';
 import RadarChart from './radarchart';
 import PieChart from './piechart';
 import PieChartOptions from './piechartopt';
