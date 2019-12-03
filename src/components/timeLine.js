@@ -5,9 +5,13 @@ import { Container, Row, Col } from "shards-react";
 import UsersOverview from './UsersOverview';
 import UsersByDevice from './UsersByDevice';
 import BarChart from './BarChart';
+import RadarChart from './radarchart';
 //import { getData } from '../utils/data_prep.js';
 import * as d3 from "d3";
 import data from '../assets/sachin.csv'
+
+import {chartStyleWins, chartStyle, chartStyleLosses, barChartStyle1, 
+		barChartStyle2, pieChartStyles} from './style'
 
 function cleanData( jsonObj )
 {
@@ -46,71 +50,7 @@ function aggregate_score( jsonObj)
 	return res;
 }
 
-var chartStyle = {        
-				backgroundColor: "rgba(0,123,255,0.1)",
-				//cubicInterpolationMode: "false",
-        borderColor: "rgba(0,123,255,1)",
-        pointBackgroundColor: "#ffffff",
-        pointHoverBackgroundColor: "rgb(0,123,255)",
-        borderWidth: 1.5,
-        pointRadius: 0,
-        pointHoverRadius: 3
-      };
 
-var chartStyleWins = {
-      backgroundColor: "rgba(0,250,154,0.1)",
-         borderColor: "rgb(0,250,154)",
-         pointBackgroundColor: "#ffffff",
-         pointHoverBackgroundColor: "rgb(0,250,154)",
-         borderWidth: 1.5,
-         pointRadius: 0,
-         pointHoverRadius: 3
-};
-
-var chartStyleLosses = {
-	 backgroundColor: "rgba(255,65,105,0.1)",
-            borderColor: "rgba(255,65,105,1)",
-            pointBackgroundColor: "#ffffff",
-            pointHoverBackgroundColor: "rgba(255,65,105,1)",
-            //borderDash: [3, 3],
-            borderWidth: 1,
-            pointRadius: 0,
-            pointHoverRadius: 2
-}
-
-var pieChartStyles = {
-	hoverBorderColor: "#ffffff",
-	backgroundColor: ["rgba(0,123,255,0.9)",
-    				"rgba(0,123,255,0.3)"]
-
-}
-
-var barChartStyle1 = {
-		hoverBorderColor: "#ffffff",
-	    //barPercentage: 0.3,
-	    //barThickness: 5,
-	    maxBarThickness: 20,
-	    minBarLength: 4,
-	    backgroundColor: [
-      "rgba(0,123,255,0.9)",
-      "rgba(0,123,255,0.9)",
-      "rgba(0,123,255,0.9)",
-      "rgba(0,123,255,0.9)",
-      ]
-}
-var barChartStyle2 = {
-		hoverBorderColor: "#ffffff",
-	    //barPercentage: 0.3,
-	    //barThickness: 5,
-	    maxBarThickness: 20,
-	    minBarLength: 4,
-	    backgroundColor: [
-      "rgba(0,123,255,0.2)",
-      "rgba(0,123,255,0.2)",
-      "rgba(0,123,255,0.2)",
-      "rgba(0,123,255,0.2)",
-      ]
-}
 
 
 function getYearlyData(jsonObj)
@@ -267,12 +207,12 @@ class TimeLine extends React.Component {
 		return (
 		<div>
 		<Row>
-		<Col sm="12" md="4" lg="3" >
+		<Col sm="12" md="4" lg="2" >
 		</Col>
-		<Col sm="12" md="4" lg="6">
+		<Col sm="12" md="4" lg="8">
 				<div style = {{ marginBottom: "10px"}} class="card">
 				  <div className="card-body">
-				    This is some text within a card block.
+				    We can take a look at Sachin's batting numbers at different cuts on this page. Each card is a different slice of data. Cards are self-explanatory, I have added comments wherever needed.
 				  </div>
 
 				</div>
@@ -293,6 +233,11 @@ class TimeLine extends React.Component {
 	        			{(this.state.yearlyData) && <UsersOverview title="Run Stats" chartData={yearlyData} />}
 					</Col>
 				</Row>
+				<Row>
+					<Col >
+	        			<RadarChart/>}
+					</Col>
+				</Row>
 				<div style = {{ marginBottom: "10px"}} class="card">
 			  <div className="card-body">
 			    This is some text within a card block.
@@ -300,7 +245,7 @@ class TimeLine extends React.Component {
 			</div>
 			</div>
 			</Col>
-			<Col sm="12" md="4" lg="3" >
+			<Col sm="12" md="4" lg="2" >
 			</Col>
 			</Row>
 		</div>
