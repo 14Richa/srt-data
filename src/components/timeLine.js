@@ -184,7 +184,7 @@ class TimeLine extends React.Component {
 			</Col>
 			<Col  lg="8" md="8" sm="8" className= "mt-4" >
 			In the below map, we can see which grounds and pitches Sachin loved playing on. It is a heatmap representation of all the runs he scored over his career across different countries. Sachin scored maximum runs when playing in India. 
-			<MapChartWrapper data={countries_score}/>
+			{(this.state.countries_score) && <MapChartWrapper data={countries_score}/> }
 			</Col>
 			<Col  lg="2" md="2" sm="2" >
 			</Col>
