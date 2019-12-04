@@ -98,12 +98,12 @@ class TimeSeriesChart extends React.Component {
             //   <RangeDatePicker />
             // </Col>*/}
             <Col>
-              <Button
-                size="sm"
-                className="d-flex btn-white ml-auto mr-auto ml-sm-auto mr-sm-0 mt-3 mt-sm-0"
-              >
-                View Full Report &rarr;
-              </Button>
+              {/*<Button
+                              size="sm"
+                              className="d-flex btn-white ml-auto mr-auto ml-sm-auto mr-sm-0 mt-3 mt-sm-0"
+                            >
+                              View Full Report &rarr;
+                            </Button>*/}
             </Col>
           </Row>
           <canvas
