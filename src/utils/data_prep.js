@@ -17,14 +17,75 @@ import {chartStyleWins, chartStyle, chartStyleLosses, barChartStyle1, pieChartSt
 
 // 	})
 // }
-export function getCountriesGroundMap()
+export function getCountriesGroundMap(jsonObj)
 {
-	let India = ["Nagpur", "Pune", "Margao", "Chandigarh", "Cuttack", "Kolkata", "Gwalior", "New Delhi", "Vishakhapatnam", "Kochi", "Jodhpur", "Amritsar", "Rajkot", "Mohali",
-	"Jaipur", "Kanpur", "Faridabad", "Bangalore", "Jamshedpur", "Guwahati", "Gwalior", "Bangalore", "Hyderabad", "Jalandhar", "Mumbai", "Chennai", "Delhi", "Indore", "Ahemdabad"];
-	let Pakistan = ["Karachi", "Peshawar", "Rawalpindi", "Multan", "Lahore", "Gujranwala"];
-	let United_Kingdom = ["Leeds", "Nottingham", ""];
-	let Australia = ["Perth", "Hobart", "Adelaide", "Brisbane", "Sydney", "Melbourne", ""];
+    let India = ["Nagpur", "Pune", "Margao", "Chandigarh", "Cuttack", "Kolkata", "Gwalior", "New Delhi", "Vishakhapatnam", "Kochi", "Jodhpur", "Amritsar", "Rajkot", "Mohali",
+    "Jaipur", "Kanpur", "Faridabad", "Bangalore", "Jamshedpur", "Guwahati", "Gwalior", "Bangalore", "Hyderabad", "Jalandhar", "Mumbai", "Chennai", "Delhi", "Indore", "Ahemdabad"];
+    let Pakistan = ["Karachi","Multan", "Peshawar", "Rawalpindi", "Multan", "Lahore", "Gujranwala"];
+    let United_Kingdom = ["Leeds","Belfast", "Southampton", "Nottingham", "The Oval", "Manchester", "Hove", "Bristol","Taunton","Birmingham", "Lord's", "Chester-le-Street"];
+    let Australia = ["Perth", "Canberra", "Hobart", "Adelaide", "Brisbane", "Sydney", "Melbourne", "Mackay", ];
+    let New_Zealand = ['Hamilton', "Napier", "Auckland", "Christchurch", "Taupo", "Dunedin" ];
+    let South_Africa = ["Cape Town", "Port Elizabeth", "Centurion","Benoni", "Pietermaritzburg", "Paarl", "Johannesburg", "Bloemfontein", "Durban", "East London",];
+    let West_Indies = ["Kingstown", "Bridgetown"];
+    let CountryMap = {"Zimbabwe": ["Harare", "Bulawayo"],
+                                        "Sri Lanka": ["Colombo", "Moratuwa", "Galle", "Dambulla"],
+                                        "Singapore": ["Singapore"],
+                                        "Canada" : ["Toronto"],
+                                        "Kenya" : ["Nairobi"],
+                                        "Malaysia" : ["Kuala Lumpur"],
+                                        "Trinidad and Tobago": ["Port of Spain"],
+                                        "Bangladesh" : ["Chittagong", "Dhaka"],
+                                        "UAE": ["Sharjah"]};
+    
 
+    for (var i = jsonObj.length - 1; i >= 0; i--) {
+    	let ground = jsonObj[i].ground;
+    	jsonObj[i].country = "NA";
+    	let country = "NA";
+    	if(India.includes(ground))
+    	{
+    		country = "India";
+    	}
+    	else if( Pakistan.includes(ground))
+    	{
+    		country = "Pakistan";
+    	}
+    	else if( United_Kingdom.include(ground))
+    	{
+    		country = "United Kingdom";
+    	}
+    	else if( Australia.iclude(ground))
+    	{
+    		country = "Australia";
+    	}
+    	else if(New_Zealand.includes(ground))
+    	{
+    		country = "New Zealand";
+    	}
+    	else if(South_Africa.includes(ground))
+    	{
+    		country = "South Africa";
+    	}
+    	else if(West_Indies.include(ground))
+    	{
+    		country = "West Indies";
+    	}
+    	else
+    	{
+    		for(key in CountryMap)
+    		{
+    			if(CountryMap[key].includes(ground))
+    			{
+    				country = key;
+    				break;
+    			}
+    		}
+    	}
+    	jsonObj[i].country = country;
+
+    }
+
+    return jsonObj;
 }
 
 export function getGrounds(jsonObj)
