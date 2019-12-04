@@ -32,6 +32,11 @@ export const pieChartStyles = {
 		backgroundColor: ["rgba(0,123,255,0.9)",
 		"rgba(0,123,255,0.3)"]
 };
+export const pieChartStyles3 = {
+		hoverBorderColor: "#ffffff",
+		backgroundColor: ["rgba(0,123,255,0.8)",
+		"rgba(255,65,105,0.6)"]
+};
 export const pieChartStyles2 = {
 		hoverBorderColor: "#ffffff",
 		backgroundColor: [	"rgba(0,123,255,0.9)",

@@ -1,6 +1,6 @@
 //data_prep.js
 
-import {chartStyleWins, chartStyle, chartStyleLosses, barChartStyle1, pieChartStyles2,
+import {chartStyleWins, chartStyle, chartStyleLosses, barChartStyle1, pieChartStyles2, pieChartStyles3,
 		barChartStyle2, pieChartStyles, radarChartStyles} from "../components/style.js"
 // export function getData(type)
 // {
@@ -299,6 +299,35 @@ export function GetMatchesPlayed (jsonObj)
 
 	return chartData;
 
+}
+
+export function getMatchesResultsWithScores(jsonObj)
+{
+	let Morethan50Won = jsonObj.filter(d => d.score >= 50).filter(d => d.match_result === "won").length;
+	let Morethan50Lost = jsonObj.filter(d => d.score >= 50).filter(d => d.match_result === "lost").length;
+	let Lessthan30Won = jsonObj.filter(d => d.score <= 30).filter(d => d.match_result === "won").length;
+	let Lessthan30Lost = jsonObj.filter(d => d.score <= 30).filter(d => d.match_result === "lost").length;
+	//console.log(Morethan50Won, Morethan50Lost, Lessthan30Lost, Lessthan30Won, "Test");
+	let chartDataMore = {
+		labels: ["Won", "Lost"],
+		datasets: [
+		{
+			data: [Morethan50Won, Morethan50Lost],
+			...pieChartStyles3
+		}
+		]
+	}
+	let chartDataLess = {
+		labels: ["Won", "Lost"],
+		datasets: [
+		{
+			data: [Lessthan30Won, Lessthan30Lost],
+			...pieChartStyles3
+		}
+		]
+	}
+	let obj = {LessThan: chartDataLess, MoreThan: chartDataMore};
+	return(obj);
 }
 
 export function getTopOpponents( jsonObj )

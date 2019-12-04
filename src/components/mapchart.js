@@ -19,7 +19,7 @@ const rounded = num => {
 };
 
 const MapChart = ({ setTooltipContent, score }) => {
-  console.log(score.data, "check1");
+  
   let countries;
   if(score.data)
   {
@@ -33,10 +33,10 @@ const MapChart = ({ setTooltipContent, score }) => {
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo =>{
-                //console.log(countries, "Here2");
+                
                 const d = countries.find(s => s === geo.properties.NAME );
                 let runs = 0;
-                if(d) {runs = score.data[d];console.log(d,"HEre", colorScale(runs));}
+                if(d) {runs = score.data[d];}
 
                 return(
                 <Geography
@@ -44,7 +44,6 @@ const MapChart = ({ setTooltipContent, score }) => {
                   geography={geo}
                   onMouseEnter={() => {
                     const { NAME } = geo.properties;
-                    console.log(geo);
                     setTooltipContent(`${NAME} — ${rounded(runs)}`);
                   }
                   }
@@ -52,20 +51,6 @@ const MapChart = ({ setTooltipContent, score }) => {
                     setTooltipContent("");
                   }}
                   fill={d ? colorScale(runs) : "#D6D6DA"}
-                  // style={{
-                  //   default: {
-                  //     fill: "#D6D6DA",
-                  //     outline: "none"
-                  //   },
-                  //   hover: {
-                  //     fill: "#4CA6FF",
-                  //     outline: "none"
-                  //   },
-                  //   pressed: {
-                  //     fill: "#4495e5",
-                  //     outline: "none"
-                  //   }
-                  // }}
                 />
               );
               })

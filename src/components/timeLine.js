@@ -9,7 +9,8 @@ import RadarChart from './radarchart';
 import PieChart from './piechart';
 import PieChartOptions from './piechartopt';
 //Import Functions
-import { getTopOpponents, getCountriesScoreAggregate, GetMatchesPlayed, getYearlyTimeSeriesData, getRunsPieData, getCenturiesData, getGrounds, getCountriesGroundMap  } from '../utils/data_prep.js';
+import { getTopOpponents, getCountriesScoreAggregate, getMatchesResultsWithScores, GetMatchesPlayed, getYearlyTimeSeriesData, getRunsPieData, 
+	getCenturiesData, getGrounds, getCountriesGroundMap  } from '../utils/data_prep.js';
 //Import Data
 import data from '../assets/sachin.csv';
 import MapChartWrapper from './mapchartwrapper';
@@ -54,12 +55,11 @@ class TimeLine extends React.Component {
 			var pieData = getRunsPieData(clean_Data);
 			var barData = getCenturiesData(clean_Data);
 			var matchesPlayed = GetMatchesPlayed(clean_Data);
-			//matchesPlayed.datasets[0] = {...matchesPlayed.datasets[0], ...pieChartStyles2}; 
 			var top5Oppo = getTopOpponents(clean_Data);
-			//top5Oppo.datasets[0] = {...top5Oppo.datasets[0], ...radarChartStyles, ...{label: "Runs Scored"}};
 			let countriesData = getCountriesGroundMap(clean_Data);
 			let countries_score = getCountriesScoreAggregate(countriesData);
-			console.log(countries_score);
+			let ScoreResult = getMatchesResultsWithScores(clean_Data);
+			
 
 			this.setState({
         		yearlyData: temp,
@@ -67,7 +67,8 @@ class TimeLine extends React.Component {
         		barData: barData,
         		radarData: top5Oppo,
         		matchesPlayed: matchesPlayed,
-        		countries_score: countries_score
+        		countries_score: countries_score,
+        		score_result: ScoreResult 
       });
 		}).catch(function(err){
 					throw err;
@@ -76,7 +77,7 @@ class TimeLine extends React.Component {
 	
 
 	render() {
-		const { yearlyData, pieData, barData, radarData, matchesPlayed, countries_score } = this.state;
+		const { yearlyData, pieData, barData, radarData, matchesPlayed, countries_score, score_result } = this.state;
 		return (
 		<div>
 		<Row>
@@ -160,10 +161,29 @@ class TimeLine extends React.Component {
 			<Col sm="12" md="4" lg="2" >
 			</Col>
 			</Row>
-			<Row>
+			<Row className= "mb-4">
+			<Col>
+			</Col>
+				<Col >
+	        			{(this.state.matchesPlayed) && <PieChart title="Matches where Sachin scored more than fifty runs" chartData={score_result.MoreThan} /> }
+    			</Col>
+    			<Col>
+    				There is a popular opinion that whenever Sachin scored runs India lost the match. In these pie charts we see that it is quite the contrary. Of all the matches where Sachin score more than 50 runs 
+    				India ended up winning 65% of those games. Whereas matches in which Sachin scored less than 30 runs India ended up losing 54% of those games.
+    			</Col>
+    			<Col >
+	        			{(this.state.matchesPlayed) && <PieChart title="Matches where Sachin scored less than thirty runs" chartData={score_result.LessThan} /> }
+				</Col>
+				<Col>
+				</Col>
+
+			</Row>
+			<Row className= "mt-4">
+
 			<Col  lg="2" md="2" sm="2" >
 			</Col>
-			<Col  lg="8" md="8" sm="8" >
+			<Col  lg="8" md="8" sm="8" className= "mt-4" >
+			In the below map, we can see which grounds and pitches Sachin loved playing on. It is a heatmap representation of all the runs he scored over his career across different countries. Sachin scored maximum runs when playing in India. 
 			<MapChartWrapper data={countries_score}/>
 			</Col>
 			<Col  lg="2" md="2" sm="2" >
