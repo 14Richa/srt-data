@@ -6,11 +6,11 @@ import ReactTooltip from "react-tooltip";
 
 import MapChart from "./mapchart";
 
-function MapChartWrapper() {
+function MapChartWrapper(data) {
   const [content, setContent] = useState("");
   return (
     <div>
-      <MapChart setTooltipContent={setContent} />
+      <MapChart setTooltipContent={setContent} score={data} />
       <ReactTooltip>{content}</ReactTooltip>
     </div>
   );

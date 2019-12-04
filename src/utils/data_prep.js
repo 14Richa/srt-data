@@ -17,6 +17,23 @@ import {chartStyleWins, chartStyle, chartStyleLosses, barChartStyle1, pieChartSt
 
 // 	})
 // }
+export function getCountriesScoreAggregate(jsonObj)
+{
+	console.log(jsonObj, "Countries");
+	let countries = jsonObj.map( d => d.country);
+	let unique_countries = countries.filter((item, i, ar) => ar.indexOf(item) === i);
+	let obj = {};
+	for (let i = unique_countries.length - 1; i >= 0; i--) {
+		obj[unique_countries[i]] = 0;
+	}
+	for (let i = jsonObj.length - 1; i >= 0; i--) {
+		obj[jsonObj[i].country] += jsonObj[i].score;
+		//console.log(jsonObj[i].country, jsonObj[i].score);
+	}
+
+	return obj;
+
+}
 export function getCountriesGroundMap(jsonObj)
 {
     let India = ["Nagpur", "Pune", "Margao", "Chandigarh", "Cuttack", "Kolkata", "Gwalior", "New Delhi", "Vishakhapatnam", "Kochi", "Jodhpur", "Amritsar", "Rajkot", "Mohali",
@@ -35,7 +52,7 @@ export function getCountriesGroundMap(jsonObj)
                                         "Malaysia" : ["Kuala Lumpur"],
                                         "Trinidad and Tobago": ["Port of Spain"],
                                         "Bangladesh" : ["Chittagong", "Dhaka"],
-                                        "UAE": ["Sharjah"]};
+                                        "United Arab Emirates": ["Sharjah"]};
     
 
     for (var i = jsonObj.length - 1; i >= 0; i--) {
@@ -50,11 +67,11 @@ export function getCountriesGroundMap(jsonObj)
     	{
     		country = "Pakistan";
     	}
-    	else if( United_Kingdom.include(ground))
+    	else if( United_Kingdom.includes(ground))
     	{
     		country = "United Kingdom";
     	}
-    	else if( Australia.iclude(ground))
+    	else if( Australia.includes(ground))
     	{
     		country = "Australia";
     	}
@@ -66,16 +83,17 @@ export function getCountriesGroundMap(jsonObj)
     	{
     		country = "South Africa";
     	}
-    	else if(West_Indies.include(ground))
+    	else if(West_Indies.includes(ground))
     	{
     		country = "West Indies";
     	}
     	else
     	{
-    		for(key in CountryMap)
+    		for(let key in CountryMap)
     		{
     			if(CountryMap[key].includes(ground))
     			{
+
     				country = key;
     				break;
     			}

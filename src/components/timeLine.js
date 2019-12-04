@@ -9,7 +9,7 @@ import RadarChart from './radarchart';
 import PieChart from './piechart';
 import PieChartOptions from './piechartopt';
 //Import Functions
-import { getTopOpponents, GetMatchesPlayed, getYearlyTimeSeriesData, getRunsPieData, getCenturiesData, getGrounds  } from '../utils/data_prep.js';
+import { getTopOpponents, getCountriesScoreAggregate, GetMatchesPlayed, getYearlyTimeSeriesData, getRunsPieData, getCenturiesData, getGrounds, getCountriesGroundMap  } from '../utils/data_prep.js';
 //Import Data
 import data from '../assets/sachin.csv';
 import MapChartWrapper from './mapchartwrapper';
@@ -48,6 +48,7 @@ class TimeLine extends React.Component {
 	{
 		d3.csv(data).then((data) => {
 			var clean_Data = cleanData(data);
+
 			console.log(clean_Data);
 			var temp = getYearlyTimeSeriesData(clean_Data);
 			var pieData = getRunsPieData(clean_Data);
@@ -56,14 +57,17 @@ class TimeLine extends React.Component {
 			//matchesPlayed.datasets[0] = {...matchesPlayed.datasets[0], ...pieChartStyles2}; 
 			var top5Oppo = getTopOpponents(clean_Data);
 			//top5Oppo.datasets[0] = {...top5Oppo.datasets[0], ...radarChartStyles, ...{label: "Runs Scored"}};
-			getGrounds(clean_Data);
+			let countriesData = getCountriesGroundMap(clean_Data);
+			let countries_score = getCountriesScoreAggregate(countriesData);
+			console.log(countries_score);
 
 			this.setState({
         		yearlyData: temp,
         		pieData: pieData,
         		barData: barData,
         		radarData: top5Oppo,
-        		matchesPlayed: matchesPlayed
+        		matchesPlayed: matchesPlayed,
+        		countries_score: countries_score
       });
 		}).catch(function(err){
 					throw err;
@@ -72,7 +76,7 @@ class TimeLine extends React.Component {
 	
 
 	render() {
-		const { yearlyData, pieData, barData, radarData, matchesPlayed } = this.state;
+		const { yearlyData, pieData, barData, radarData, matchesPlayed, countries_score } = this.state;
 		return (
 		<div>
 		<Row>
@@ -160,7 +164,7 @@ class TimeLine extends React.Component {
 			<Col  lg="2" md="2" sm="2" >
 			</Col>
 			<Col  lg="8" md="8" sm="8" >
-			<MapChartWrapper/>
+			<MapChartWrapper data={countries_score}/>
 			</Col>
 			<Col  lg="2" md="2" sm="2" >
 			</Col>
